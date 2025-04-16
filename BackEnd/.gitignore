@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+*.egg-info/
+*.egg/
+*.eggs/
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.pip/
+.pipenv/
+
+# FastAPI related logs
+*.log
+
+# Test coverage
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.cache
+.pytest_cache/
+
+# VSCode settings
+.vscode/
+
+# MacOS & Linux junk
+.DS_Store
+Thumbs.db
+
+# mypy
+.mypy_cache/
+
+# pyright
+.pyright/
+
+# Pydantic compiled models
+__pydantic__/ 
+
+# Local configs
+.env
+.env.*
+
+# Uvicorn reload
+*.reload
