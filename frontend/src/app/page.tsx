@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { loginSubmit } from "./loginService";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,28 +10,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const login = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      // Aqui você faria a chamada para sua API de autenticação
-      console.log("Login attempt with:", { email, password });
-
-      // Simulando uma requisição assíncrona
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Simulando erro (remova isso na implementação real)
-      // throw new Error("Credenciais inválidas");
-
-      // Redirecionamento após login bem-sucedido
-      // window.location.href = "/dashboard";
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Ocorreu um erro");
-    } finally {
-      setLoading(false);
-    }
+    loginSubmit(email, password, setLoading, setError);
   };
 
   return (
@@ -60,7 +42,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={login}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email
