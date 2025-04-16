@@ -19,7 +19,7 @@ Ative o ambiente virtual:
 - **Windows**:
 
   ```bash
-  venv\Scripts\activate
+  .\env\Scripts\activate
   ```
 
 ### 2. **Instalando as Dependências**
