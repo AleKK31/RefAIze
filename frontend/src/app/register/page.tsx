@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { createUser } from "../../services/userService";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const registerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -23,14 +24,8 @@ export default function RegisterPage() {
     }
 
     try {
-      // Aqui você faria a chamada para sua API de cadastro
-      console.log("Register attempt with:", { name, email, password });
-
-      // Simulando uma requisição assíncrona
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Redirecionamento após cadastro bem-sucedido
-      // window.location.href = "/dashboard";
+      await createUser(name, email, password, setLoading, setError);
+      window.location.href = "/";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Ocorreu um erro no cadastro");
     } finally {
@@ -65,7 +60,7 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={registerSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Nome completo

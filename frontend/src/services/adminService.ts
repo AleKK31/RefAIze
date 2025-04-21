@@ -8,7 +8,7 @@ export const loginSubmit = async (
     setError("");
   
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch("http://localhost:8000/auth/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const loginSubmit = async (
       console.log("Login realizado com sucesso!", data);
   
       localStorage.setItem("access_token", data.access_token);
-      window.location.href = "/register";
+      window.location.href = "/home";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Ocorreu um erro");
     } finally {

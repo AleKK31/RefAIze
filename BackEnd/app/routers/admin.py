@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.models.admin import Admin
 from app.schemas.admin import AdminCreate, AdminOut
-from app.database import get_db
+from app.core.database import get_db
 from app.auth.jwt_bearer import JWTBearer
 from passlib.hash import bcrypt
 

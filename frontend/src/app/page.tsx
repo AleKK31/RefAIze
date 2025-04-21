@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { loginSubmit } from "../services/userService";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -9,36 +10,17 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    try {
-      // Aqui você faria a chamada para sua API de autenticação
-      console.log("Login attempt with:", { email, password });
-
-      // Simulando uma requisição assíncrona
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Simulando erro (remova isso na implementação real)
-      // throw new Error("Credenciais inválidas");
-
-      // Redirecionamento após login bem-sucedido
-      // window.location.href = "/dashboard";
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Ocorreu um erro");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const login = (e: React.FormEvent) => {
+      e.preventDefault();
+      loginSubmit(email, password, setLoading, setError);
+    };
 
   return (
     <div className="min-h-screen flex">
       <div className="w-2/5 bg-cover bg-center" style={{ backgroundImage: 'url("/your-image-url.jpg")' }}>
         <div className="flex flex-col justify-center items-center h-full bg-white dark:bg-gray-800 bg-opacity-50 text-white">
           <h1 className="text-4xl font-bold">RefAIze</h1>
-          <h2 className="mt-4 text-xl">Transforme sua visão de futuro</h2>
+          <h2 className="mt-4 text-xl">Sua visão. Nossa Inteligência. Seu estilo.</h2>
         </div>
       </div>
 
@@ -63,7 +45,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={login}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Email

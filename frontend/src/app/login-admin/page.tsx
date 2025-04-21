@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { loginSubmit } from "./loginService";
+import { loginSubmit } from "../../services/adminService";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
