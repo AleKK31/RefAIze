@@ -4,12 +4,12 @@
 > 🎯 Objetivo: App básico com cadastro de roupas, organização e sugestão simples de looks.
 
 ### ✅ Estrutura Inicial
-- [ ] Criar repositório e estrutura base do projeto
-- [ ] Definir stack ()
-- [ ] Setup do Banco de Dados
+- [X] Criar repositório e estrutura base do projeto
+- [X] Definir stack ()
+- [X] Setup do Banco de Dados
 
 ### ✅ Autenticação
-- [ ] Tela de login/cadastro
+- [X] Tela de login/cadastro
 - [ ] Recuperação de senha
 
 ### ✅ Guarda-roupa Digital
