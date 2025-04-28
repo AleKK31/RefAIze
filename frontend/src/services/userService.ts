@@ -69,7 +69,12 @@ export const createUser = async (
 
 export const fetchUsers = async () => {
   try {
-    const response = await fetch("http://localhost:8000/users/");
+    const token = localStorage.getItem("access_token");
+    const response = await fetch("http://localhost:8000/users/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erro ao buscar usuários");
     }
@@ -82,7 +87,12 @@ export const fetchUsers = async () => {
 
 export const fetchUserById = async (id: number) => {
   try {
-    const response = await fetch(`http://localhost:8000/users/${id}`);
+    const token = localStorage.getItem("access_token");
+    const response = await fetch(`http://localhost:8000/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response.ok) {
       throw new Error("Erro ao buscar usuário por ID");
     }
@@ -95,8 +105,12 @@ export const fetchUserById = async (id: number) => {
 
 export const deleteUser = async (id: number) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/users/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Erro ao deletar usuário");
@@ -104,5 +118,40 @@ export const deleteUser = async (id: number) => {
   } catch (error) {
     console.error(error);
     throw error;
+  }
+};
+
+export const updateUser = async (
+  id: number,
+  updatedData: { name?: string; email?: string; password?: string },
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setError: React.Dispatch<React.SetStateAction<string>>
+) => {
+  setLoading(true);
+  setError("");
+
+  try {
+    const token = localStorage.getItem("access_token");
+    const response = await fetch(`http://localhost:8000/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Erro ao atualizar usuário");
+    }
+
+    const data = await response.json();
+    console.log("Usuário atualizado com sucesso!", data);
+    return data;
+  } catch (err) {
+    setError(err instanceof Error ? err.message : "Ocorreu um erro");
+  } finally {
+    setLoading(false);
   }
 };

@@ -26,10 +26,12 @@ export const fetchOccasionById = async (id: number) => {
 
 export const createOccasion = async (name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch("http://localhost:8000/occasions/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -45,10 +47,12 @@ export const createOccasion = async (name: string) => {
 
 export const updateOccasion = async (id: number, name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/occasions/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -64,8 +68,12 @@ export const updateOccasion = async (id: number, name: string) => {
 
 export const deleteOccasion = async (id: number) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/occasions/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to delete occasion");

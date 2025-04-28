@@ -26,15 +26,18 @@ export const fetchStyleById = async (id: number) => {
 
 export const createStyle = async (name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch("http://localhost:8000/styles/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
     if (!response.ok) {
-      throw new Error("Failed to create style");
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Failed to create style");
     }
     return await response.json();
   } catch (error) {
@@ -45,10 +48,12 @@ export const createStyle = async (name: string) => {
 
 export const updateStyle = async (id: number, name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/styles/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -64,8 +69,12 @@ export const updateStyle = async (id: number, name: string) => {
 
 export const deleteStyle = async (id: number) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/styles/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to delete style");

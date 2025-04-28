@@ -26,10 +26,12 @@ export const fetchClothingTypeById = async (id: number) => {
 
 export const createClothingType = async (name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch("http://localhost:8000/clothing-types/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -45,10 +47,12 @@ export const createClothingType = async (name: string) => {
 
 export const updateClothingType = async (id: number, name: string) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/clothing-types/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -64,8 +68,12 @@ export const updateClothingType = async (id: number, name: string) => {
 
 export const deleteClothingType = async (id: number) => {
   try {
+    const token = localStorage.getItem("access_token");
     const response = await fetch(`http://localhost:8000/clothing-types/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error("Failed to delete clothing type");
